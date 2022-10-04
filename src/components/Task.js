@@ -1,12 +1,17 @@
 import { FaTimes } from "react-icons/fa";
+import { FaBell } from "react-icons/fa";
 
-const Task = ({ value, onDelete }) => {
+const Task = ({ value, onDelete, togglereminder }) => {
   return (
-    <div className="task">
+    <div className={`task ${value.reminder ? "reminder" : ""}`}>
       <h3>
-        {value.text}{" "}
+        {value.text}
+        <FaBell
+          onClick={() => togglereminder(value.id)}
+          style={{ color: "yellow", cursor: "pointer" }}
+        />
         <FaTimes
-          onClick={()=>onDelete(value.id)}
+          onClick={() => onDelete(value.id)}
           style={{ color: "red", cursor: "pointer" }}
         />
       </h3>

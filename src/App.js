@@ -1,10 +1,10 @@
-import Header from './components/Header';
-import Tasks from './components/Tasks';
+import Header from "./components/Header";
+import Tasks from "./components/Tasks";
+import AddTask from "./components/AddTask";
 import { useState } from "react";
 
 function App() {
-
-  const [tasks,setTasks] = useState([
+  const [tasks, setTasks] = useState([
     {
       id: 1,
       text: "Buy groceries",
@@ -31,15 +31,30 @@ function App() {
     },
   ]);
 
-  const deleteTask = (id)=>{
-    setTasks(tasks.filter(task=>task.id!==id))
-  }
+  const deleteTask = (id) => {
+    setTasks(tasks.filter((task) => task.id !== id));
+  };
+
+  const handleReminderClick = (id) => {
+    setTasks(
+      tasks.map(item => 
+       item.id===id?{...item,reminder:!item.reminder}:item
+    ))
+  };
 
   return (
-    <div className='container'>
-     <Header/>
-    <Tasks list={tasks} onDelete={deleteTask} 
-    />
+    <div className="container">
+      <Header />
+      <AddTask/>
+      {tasks.length > 0 ? (
+        <Tasks
+          list={tasks}
+          onDelete={deleteTask}
+          togglereminder={handleReminderClick}
+        />
+      ) : (
+        "Nothing to show..."
+      )}
     </div>
   );
 }
