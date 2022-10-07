@@ -37,15 +37,28 @@ function App() {
 
   const handleReminderClick = (id) => {
     setTasks(
-      tasks.map(item => 
-       item.id===id?{...item,reminder:!item.reminder}:item
-    ))
+      tasks.map((item) =>
+        item.id === id ? { ...item, reminder: !item.reminder } : item
+      )
+    );
+  };
+
+  const onAdd = (text, day, reminder) => {
+    const currentDate = new Date().toDateString();
+
+    const obj1 = {
+      text: text,
+      day: !day ? currentDate : day,
+      reminder: !reminder ? false : true,
+    };
+
+    console.log(`Text: ${obj1.text}, Day: ${obj1.day}, Reminder: ${obj1.reminder}.`);
   };
 
   return (
     <div className="container">
       <Header />
-      <AddTask/>
+      <AddTask onAdd={onAdd} />
       {tasks.length > 0 ? (
         <Tasks
           list={tasks}
